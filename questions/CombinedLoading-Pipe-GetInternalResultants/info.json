@@ -4,9 +4,10 @@
   "topic": "Combined Loading",
   "type": "v3",
   "tags": [
-		"author:prairielearn.com",
-		"license:CC-BY-NC",	
+    "author:prairielearn.com",
+    "license:CC-BY-NC",
     "fa16",
     "calculation"
-  ]
+  ],
+  "sharedPublicly": true
 }

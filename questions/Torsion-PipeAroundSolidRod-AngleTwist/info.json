@@ -1,12 +1,13 @@
 {
-    "uuid": "3ee4fff2-5868-4a13-ab3f-61fcedd834f6",
-    "title": "Torsion - pipe around solid rod - angle of twist",
-	"topic": "Torsion",
-	"type": "v3",
-	"tags": [
-		"author:prairielearn.com",
-		"license:CC-BY-NC",	
-		"fa16",
-        "calculation"
-    ]
+  "uuid": "3ee4fff2-5868-4a13-ab3f-61fcedd834f6",
+  "title": "Torsion - pipe around solid rod - angle of twist",
+  "topic": "Torsion",
+  "type": "v3",
+  "tags": [
+    "author:prairielearn.com",
+    "license:CC-BY-NC",
+    "fa16",
+    "calculation"
+  ],
+  "sharedPublicly": true
 }

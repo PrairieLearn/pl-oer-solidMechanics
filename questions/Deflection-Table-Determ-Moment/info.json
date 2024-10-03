@@ -5,8 +5,9 @@
   "type": "v3",
   "tags": [
     "author:prairielearn.com",
-    "license:CC-BY-NC",	
+    "license:CC-BY-NC",
     "fa15",
     "calculation"
-  ]
+  ],
+  "sharedPublicly": true
 }
