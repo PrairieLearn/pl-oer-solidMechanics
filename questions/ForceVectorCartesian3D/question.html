@@ -1,0 +1,27 @@
+<pl-question-panel>
+<p>
+Write the force vector ${\vec{F_{AB}}}$ illustrated below, assuming that the magnitude of the force vector is $F_{AB} = {{params.fab}} \rm\ N$ and the coordinates of points $A$ and $B$ can be obtained using the dimensions $a = {{params.ax}} \rm\ m$, $b = {{params.az}} \rm\ m$, $c = {{params.bx}} \rm\ m$ and $d = {{params.by}} \rm\ m$. 
+</p>
+
+<pl-drawing height=500 width=600 grid-size=0>
+    <pl-drawing-initial>
+        {{{params.drawing}}}
+    </pl-drawing-initial>
+</pl-drawing>
+
+<pl-variable-output digits="1" default-tab="python">
+  <variable params-name="ax" comment="m">a</variable>
+  <variable params-name="az" comment="m">b</variable>
+  <variable params-name="bx" comment="m">c</variable>
+  <variable params-name="by" comment="m">d</variable>
+  <variable params-name="fab" comment="N">Fab</variable>
+</pl-variable-output>
+
+</pl-question-panel>
+
+<p>
+  ${\vec{F_{AB}}} =$
+ <pl-number-input answers-name="ix" comparison="relabs" rtol="1e-2" atol="1e-5" display="inline"></pl-number-input> $\hat\imath$ 
+   $+$ <pl-number-input answers-name="iy" comparison="relabs" rtol="1e-2" atol="1e-5" display="inline"></pl-number-input> $\hat\jmath$ 
+   $+$ <pl-number-input answers-name="iz" comparison="relabs" rtol="1e-2" atol="1e-5" display="inline"></pl-number-input> $\hat{k}$  ${\rm\ [N]}$
+</p>
