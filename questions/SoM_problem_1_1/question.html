@@ -1,0 +1,58 @@
+<pl-question-panel>
+  <h3>Equilibrium in 2D</h3>
+
+  <p>The simply-supported beam is subjected to the loading shown. Determine the support reactions at A and B given P = {{params.P}} kips and w = {{params.w}} kip/ft. The base length is $a = {{params.a}}\,\mathrm{ft}$.</p>
+
+  <pl-drawing width="760" height="310" grid-size="0" gradable="false" aria-label="Simply supported beam with randomized segment lengths, pin at A and roller at B, distributed load and point load with randomized directions.">
+    <pl-drawing-initial>
+      <!-- Beam -->
+      <pl-rectangle x1="379" y1="167" width="650" height="21" color="#e5e7eb" stroke-color="black" stroke-width="2"></pl-rectangle>
+      <!-- Pin support at A -->
+      <pl-triangle x1="55" y1="179" x2="39" y2="207" x3="71" y3="207" color="white" stroke-color="black" stroke-width="2"></pl-triangle>
+      <pl-line x1="35" y1="209" x2="75" y2="209" stroke-width="2"></pl-line>
+      <!-- Roller support at B -->
+      <pl-circle x1="705" y1="193" radius="14" color="white" stroke-color="black" stroke-width="2"></pl-circle>
+      <pl-line x1="685" y1="210" x2="725" y2="210" stroke-width="2"></pl-line>
+      <!-- Distributed load, positioned dynamically -->
+      {{{params.distributed_load}}}
+      <!-- Concentrated load P with randomized direction -->
+      <pl-vector x1="{{params.x3}}" y1="{{params.p_y}}" width="103" angle="{{params.p_angle}}" color="#a14e49"></pl-vector>
+      <pl-text x1="{{params.plabel}}" y1="20" label="P" font-size="22"></pl-text>
+      <!-- Dimensions -->
+      <pl-line x1="55" y1="237" x2="{{params.x1}}" y2="237" stroke-color="#929b69" stroke-width="2"></pl-line>
+      <pl-text x1="{{params.t1}}" y1="251" label="{{params.k1_label}}" font-size="18"></pl-text>
+      <pl-line x1="{{params.x1}}" y1="237" x2="{{params.x2}}" y2="237" stroke-color="#929b69" stroke-width="2"></pl-line>
+      <pl-text x1="{{params.t2}}" y1="251" label="{{params.k2_label}}" font-size="18"></pl-text>
+      <pl-line x1="{{params.x2}}" y1="237" x2="{{params.x3}}" y2="237" stroke-color="#929b69" stroke-width="2"></pl-line>
+      <pl-text x1="{{params.t3}}" y1="251" label="{{params.k3_label}}" font-size="18"></pl-text>
+      <pl-line x1="{{params.x3}}" y1="237" x2="705" y2="237" stroke-color="#929b69" stroke-width="2"></pl-line>
+      <pl-text x1="{{params.t4}}" y1="251" label="{{params.k4_label}}" font-size="18"></pl-text>
+      <pl-line x1="55" y1="229" x2="55" y2="245" stroke-color="#929b69" stroke-width="2"></pl-line>
+      <pl-line x1="{{params.x1}}" y1="229" x2="{{params.x1}}" y2="245" stroke-color="#929b69" stroke-width="2"></pl-line>
+      <pl-line x1="{{params.x2}}" y1="229" x2="{{params.x2}}" y2="245" stroke-color="#929b69" stroke-width="2"></pl-line>
+      <pl-line x1="{{params.x3}}" y1="229" x2="{{params.x3}}" y2="245" stroke-color="#929b69" stroke-width="2"></pl-line>
+      <pl-line x1="705" y1="229" x2="705" y2="245" stroke-color="#929b69" stroke-width="2"></pl-line>
+      <pl-text x1="46" y1="275" label="A" font-size="21"></pl-text>
+      <pl-text x1="697" y1="275" label="B" font-size="21"></pl-text>
+    </pl-drawing-initial>
+  </pl-drawing>
+</pl-question-panel>
+
+<div class="mb-3">
+  <pl-number-input answers-name="answer1" label="$A_y =$" suffix="kip" comparison="relabs" rtol="0.01" atol="0.01">
+  </pl-number-input>
+</div>
+
+<div class="mb-3">
+  <pl-number-input answers-name="answer2" label="$B_y =$" suffix="kip" comparison="relabs" rtol="0.01" atol="0.01">
+  </pl-number-input>
+</div>
+
+<pl-question-panel>
+  <hr>
+  <small>
+    Adapted for PrairieLearn from Problem 1.1, © Chris Galitz, licensed under
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC-SA 4.0</a>.
+    Changes include PrairieLearn-native randomization and grading.
+  </small>
+</pl-question-panel>

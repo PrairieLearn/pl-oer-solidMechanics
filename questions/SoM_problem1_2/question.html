@@ -1,0 +1,32 @@
+<pl-question-panel>
+  <h3>Equilibrium in 2D</h3>
+  <p>The cantilever beam is subjected to the loading shown. Determine the reactions at A given P = {{params.P}} kN and w = {{params.w}} kN/m. The base length is $a = {{params.a}}\,\mathrm{m}$. Take upward forces and counterclockwise moments as positive.</p>
+  <pl-drawing width="760" height="325" grid-size="0" gradable="false" aria-label="Cantilever beam with randomized segment lengths and upward or downward loads">
+    <pl-drawing-initial>
+      <!-- Beam fixed at A, ending at free tip B -->
+      <pl-rectangle x1="390" y1="185" width="630" height="22" color="#e5e7eb" stroke-color="black" stroke-width="2"></pl-rectangle>
+      <pl-rectangle x1="64" y1="183" width="22" height="125" color="#c8b19c" stroke-color="black" stroke-width="2"></pl-rectangle>
+      <!-- Uniformly distributed load and its attached w label -->
+      {{{params.distributed_load}}}
+      <!-- Point load at B -->
+      <pl-vector x1="705" y1="{{params.p_y}}" width="103" angle="{{params.p_angle}}" color="#a14e49"></pl-vector>
+      <pl-text x1="705" y1="42" label="P" font-size="22"></pl-text>
+      <!-- Three dimension segments -->
+      <pl-line x1="75" y1="244" x2="{{params.x1}}" y2="244" stroke-color="#929b69" stroke-width="2"></pl-line>
+      <pl-line x1="{{params.x1}}" y1="244" x2="{{params.x2}}" y2="244" stroke-color="#929b69" stroke-width="2"></pl-line>
+      <pl-line x1="{{params.x2}}" y1="244" x2="705" y2="244" stroke-color="#929b69" stroke-width="2"></pl-line>
+      <pl-line x1="75" y1="236" x2="75" y2="252" stroke-color="#929b69" stroke-width="2"></pl-line>
+      <pl-line x1="{{params.x1}}" y1="236" x2="{{params.x1}}" y2="252" stroke-color="#929b69" stroke-width="2"></pl-line>
+      <pl-line x1="{{params.x2}}" y1="236" x2="{{params.x2}}" y2="252" stroke-color="#929b69" stroke-width="2"></pl-line>
+      <pl-line x1="705" y1="236" x2="705" y2="252" stroke-color="#929b69" stroke-width="2"></pl-line>
+      <pl-text x1="67" y1="285" label="A" font-size="20"></pl-text>
+      <pl-text x1="704" y1="285" label="B" font-size="20"></pl-text>
+      <pl-text x1="{{params.t1}}" y1="261" label="{{params.k1_label}}" font-size="18"></pl-text>
+      <pl-text x1="{{params.t2}}" y1="261" label="{{params.k2_label}}" font-size="18"></pl-text>
+      <pl-text x1="{{params.t3}}" y1="261" label="{{params.k3_label}}" font-size="18"></pl-text>
+    </pl-drawing-initial>
+  </pl-drawing>
+</pl-question-panel>
+<div class="mb-3"><pl-number-input answers-name="answer1" label="$A_y =$" suffix="kN" comparison="relabs" rtol="0.01" atol="0.01"></pl-number-input></div>
+<div class="mb-3"><pl-number-input answers-name="answer2" label="$M_A =$" suffix="kN-m" comparison="relabs" rtol="0.01" atol="0.01"></pl-number-input></div>
+<pl-question-panel><hr><small>Adapted for PrairieLearn from Problem 1.2, © Chris Galitz, licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC-SA 4.0</a>. Changes include PrairieLearn-native drawing, randomization, and grading.</small></pl-question-panel>
