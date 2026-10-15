@@ -1,10 +1,7 @@
 {
   "uuid": "fcc58fb7-9861-549c-a357-50616e00c8e1",
   "title": "Equilibrium in 2D",
-  "topic": "Chapter 1",
-  "tags": [
-    "OK",
-    "CC BY-NC-SA 4.0"
-  ],
+  "topic": "Statics Review",
+  "tags": ["license:CC BY-NC-SA 4.0"],
   "type": "v3"
 }

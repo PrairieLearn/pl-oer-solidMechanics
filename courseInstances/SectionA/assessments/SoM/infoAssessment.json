@@ -8,7 +8,7 @@
   "zones": [
     {
       "questions": [
-        { "id": "SoM_problem_1_1", "autoPoints": 1 },
+        { "id": "SoM_problem1_1", "autoPoints": 1 },
         { "id": "SoM_problem1_2", "autoPoints": 1 },
         { "id": "SoM_problem1_3", "autoPoints": 1 }
       ]
