@@ -31,61 +31,47 @@ def generate(data):
              m3=round((xC+xB)/2,2),
              roof_direction='upward' if roof_dir==1 else 'downward',
              room_direction='upward' if room_dir==1 else 'downward')
-    # Draw the snow loading as THREE distinct physical regions:
-    # A--D: depth d on the main roof;
-    # D--C: triangular drift increasing from d to 3d;
-    # C--B: EMPTY mechanical-room space, with snow only on its roof.
+    # Native distributed loads preserve the distinct roof, drift and room regions.
+    # Snow on the mechanical room ends at its roof, leaving the room empty.
     parts = []
-    beam_y = 184.0
-    base_y = 151.0
-    peak_y = 112.0
-    room_roof_y = 112.0
-    room_snow_top_y = 72.0
-    red = '#a54c45'
-    green = '#919c68'
-
-    def line(x1, y1, x2, y2, color=red, width=2):
-        parts.append(f'<pl-line x1="{x1:.2f}" y1="{y1:.2f}" x2="{x2:.2f}" y2="{y2:.2f}" stroke-color="{color}" stroke-width="{width}"></pl-line>')
-
-    def label(x, y, value, size=17):
-        parts.append(f'<pl-text x1="{x:.2f}" y1="{y:.2f}" label="{value}" font-size="{size}"></pl-text>')
-
-    def arrow(x, top, bottom):
-        length = bottom - top
-        parts.append(f'<pl-vector x1="{x:.2f}" y1="{top:.2f}" width="{length:.2f}" angle="90" color="{red}"></pl-vector>')
-
-    def bracket(x, ytop, ybottom, title, side='right'):
-        # Explicit horizontal end caps and a vertical measurement line.
-        line(x, ytop, x, ybottom, green, 2)
-        line(x-8, ytop, x+8, ytop, green, 2)
-        line(x-8, ybottom, x+8, ybottom, green, 2)
-        label(x + (23 if side=='right' else -23), (ytop+ybottom)/2, title, 19)
-
-    # Main roof snow, including the sloping drift envelope.
-    line(xA, base_y, xD, base_y)
-    line(xD, base_y, xC, peak_y)
-    for i in range(5):
-        arrow(xA+(xD-xA)*i/4, base_y, beam_y)
-    for i in range(1, 8):
-        t = i/7
-        arrow(xD+(xC-xD-10)*t, base_y+(peak_y-base_y)*t, beam_y)
-
-    # Mechanical room: outlined EMPTY interior, C--B.
-    # Its roof is at 3d; arrows for its snow terminate at that roof,
-    # never at the beam beneath the room.
-    line(xC, room_roof_y, xC, beam_y, '#555555', 2)
-    line(xC, room_roof_y, xB, room_roof_y, '#555555', 2)
-    line(xB, room_roof_y, xB, beam_y, '#555555', 2)
-    label((xC+xB-30)/2, (room_roof_y+beam_y)/2, 'room', 17)
-
-    line(xC, room_snow_top_y, xB, room_snow_top_y)
-    for i in range(5):
-        arrow(xC+(xB-xC)*i/4, room_snow_top_y, room_roof_y)
-
-    # Height measurements: d at A, 3d at C, d above mechanical room.
-    bracket(xA-28, base_y, beam_y, 'd', 'left')
-    bracket(xB+25, peak_y, beam_y, '3d', 'right')
-    bracket(xB+25, room_snow_top_y, room_roof_y, 'd', 'right')
-    p['load_drawing'] = '\n'.join(parts)
+    def load(left, right, y, w1, w2, name=""):
+        parts.append(
+            f'<pl-distributed-load x1="{(left+right)/2:.2f}" y1="{y:.2f}" '
+            f'width="{right-left:.2f}" w1="{w1:.2f}" w2="{w2:.2f}" '
+            f'anchor-is-tail="false" color="red3" stroke-width="2" spacing="18" '
+            f'></pl-distributed-load>'
+        )
+        if name:
+            parts.append(
+                f'<pl-text x1="{(left+right)/2:.2f}" '
+                f'y1="{y-max(w1,w2)-18:.2f}" label="w" '
+                f'font-size="18"></pl-text>'
+            )
+    def line(x1, y1, x2, y2, color="#555555"):
+        parts.append(f'<pl-line x1="{x1:.2f}" y1="{y1:.2f}" x2="{x2:.2f}" y2="{y2:.2f}" stroke-color="{color}" stroke-width="2"></pl-line>')
+    def label(x, y, value):
+        parts.append(f'<pl-point x1="{x:.2f}" y1="{y:.2f}" radius="0" opacity="0" label="{value}" offsetx="0" offsety="0"></pl-point>')
+    def bracket(x, y1, y2, name, offsetx):
+        parts.append(
+            f'<pl-dimensions x1="{x:.2f}" y1="{y1:.2f}" '
+            f'x2="{x:.2f}" y2="{y2:.2f}" label="{name}" '
+            f'stroke-color="#919c68" stroke-width="2" '
+            f'offsetx="{offsetx}" draw-start-arrow="true" draw-end-arrow="true" arrow-head-width="10" arrow-head-length="0.25"></pl-dimensions>'
+        )
+        for yy in (y1, y2):
+            parts.append(f'')
+    # The main roof snow consists of uniform d and increasing drift to 3d.
+    load(xA,xD,184,33,33,"W")
+    load(xD,xC,184,33,72,"")
+    # Room boundary is deliberately left empty; snow acts on its upper roof.
+    line(xC,112,xC,184)
+    line(xC,112,xB,112)
+    line(xB,112,xB,184)
+    label((xC+xB)/2,145,"room")
+    load(xC,xB,112,40,40,"W")
+    bracket(xA-23,151,184,"d",-13)
+    bracket(xC+18,112,184,"3d",25)
+    bracket(xB+25,72,112,"d",25)
+    p['load_drawing'] = "\n".join(parts)
     data['correct_answers']['answer1']=Ay/1000
     data['correct_answers']['answer2']=By/1000

@@ -23,7 +23,7 @@ def generate(data):
     data["params"].update({"k1": k1, "k2": k2, "k3": k3, "k4": k4})
     data["params"].update(k1_label=("a" if k1 == 1 else f"{k1}a"), k2_label=("a" if k2 == 1 else f"{k2}a"), k3_label=("a" if k3 == 1 else f"{k3}a"), k4_label=("a" if k4 == 1 else f"{k4}a"))
     data["params"].update({"P": P, "w": w, "a": a, "d1": d1, "d2": d2, "d3": d3, "d4": d4, "p_angle": 90 if p_dir == 1 else -90,
-                           "p_y": 52 if p_dir == 1 else 155})
+                           "p_y": 156.5, "p_anchor_tail": "false" if p_dir == 1 else "true", "p_label_y": -119 if p_dir == 1 else -19})
     data["correct_answers"]["answer1"] = Ay
     data["correct_answers"]["answer2"] = By
 
@@ -43,12 +43,21 @@ def generate(data):
         "wlabel": round((x1 + x2) / 2, 2),
         "plabel": round(x3 - 4, 2),
     })
-    # Use 7 evenly spaced arrows, with independently randomized direction.
-    arrow_y = 92 if w_dir == 1 else 155
-    arrow_angle = 90 if w_dir == 1 else -90
-    parts = [f'<pl-line x1="{x1:.2f}" y1="92" x2="{x2:.2f}" y2="92" stroke-color="#a14e49" stroke-width="3"></pl-line>']
-    for i in range(7):
-        x = x1 + (x2 - x1) * i / 6
-        parts.append(f'<pl-vector x1="{x:.2f}" y1="{arrow_y}" width="63" angle="{arrow_angle}" color="#a14e49"></pl-vector>')
-    parts.append(f'<pl-text x1="{(x1 + x2) / 2:.2f}" y1="65" label="w" font-size="22"></pl-text>')
+    # Native load element: arrows end at the beam for either direction.
+    load_width = x2 - x1
+    load_center = (x1 + x2) / 2
+    load_y = 156.5
+    load_angle = 0 if w_dir == 1 else 180
+    parts = [
+        f'<pl-distributed-load x1="{load_center:.2f}" y1="{load_y:.2f}" '
+        f'width="{load_width:.2f}" w1="75" w2="75" '
+        f'anchor-is-tail="{str(w_dir == -1).lower()}" angle="{load_angle}" '
+        f'color="red3" stroke-width="2" spacing="20" '
+        f'offsetx1="-8" offsety1="-96"></pl-distributed-load>'
+    ]
+    # Label sits above the distributed-load arrows for either direction.
+    parts.append(
+        f'<pl-text x1="{load_center:.2f}" y1="{load_y-98:.2f}" '
+        f'label="w" font-size="18"></pl-text>'
+    )
     data["params"]["distributed_load"] = "\n".join(parts)

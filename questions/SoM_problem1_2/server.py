@@ -32,14 +32,22 @@ def generate(data):
         "t2": round((x1 + x2) / 2, 2),
         "t3": round((x2 + x3) / 2, 2),
         "p_angle": 90 if p_dir == 1 else -90,
-        "p_y": 70 if p_dir == 1 else 173,
+        "p_y": 174.0, "p_anchor_tail": "false" if p_dir == 1 else "true", "p_label_y": -119 if p_dir == 1 else -19,
     })
 
-    arrow_y = 106 if w_dir == 1 else 173
-    angle = 90 if w_dir == 1 else -90
-    parts = [f'<pl-line x1="{x1:.2f}" y1="106" x2="{x2:.2f}" y2="106" stroke-color="#a14e49" stroke-width="3"></pl-line>']
-    for i in range(7):
-        x = x1 + (x2 - x1) * i / 6
-        parts.append(f'<pl-vector x1="{x:.2f}" y1="{arrow_y}" width="67" angle="{angle}" color="#a14e49"></pl-vector>')
-    parts.append(f'<pl-text x1="{(x1 + x2)/2:.2f}" y1="77" label="w" font-size="22"></pl-text>')
+    load_center = (x1 + x2) / 2
+    load_y = 174.0
+    load_angle = 0 if w_dir == 1 else 180
+    parts = [
+        f'<pl-distributed-load x1="{load_center:.2f}" y1="{load_y:.2f}" '
+        f'width="{x2-x1:.2f}" w1="79" w2="79" '
+        f'anchor-is-tail="{str(w_dir == -1).lower()}" angle="{load_angle}" '
+        f'color="red3" stroke-width="2" spacing="20" '
+        f'offsetx1="-8" offsety1="-96"></pl-distributed-load>'
+    ]
+    # Label sits above the distributed-load arrows for either direction.
+    parts.append(
+        f'<pl-text x1="{load_center:.2f}" y1="{load_y-98:.2f}" '
+        f'label="w" font-size="18"></pl-text>'
+    )
     data["params"]["distributed_load"] = "\n".join(parts)

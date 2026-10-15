@@ -1,0 +1,43 @@
+<pl-question-panel>
+  <h3>Equilibrium in 2D</h3>
+
+  <p>The simply-supported beam is subjected to the loading shown. Determine the support reactions at $A$ and $B$ given $P = {{params.P}}\,\rm{kip}$ and $w = {{params.w}}\,\rm{kip/ft}$. The base length is $a = {{params.a}}\,\rm{ft}$.</p>
+
+  <pl-drawing width="760" height="310" grid-size="0" gradable="false" aria-label="Simply supported beam with randomized segment lengths, pin at A and roller at B, distributed load and point load with randomized directions.">
+    <pl-drawing-initial>
+      <!-- Native mechanics: rod, pin and roller -->
+      <pl-rod x1="55" y1="167" x2="705" y2="167" width="21" draw-pin="false" color="#e5e7eb"></pl-rod>
+      <pl-fixed-pin x1="55" y1="178" height="31" width="34" color="white" draw-pin="false" label="A" offsetx="-9" offsety="90"></pl-fixed-pin>
+      <pl-roller x1="705" y1="178" height="31" width="34" color="white" draw-pin="false" label="B" offsetx="-8" offsety="90"></pl-roller>
+      <!-- Distributed load, positioned dynamically -->
+      {{{params.distributed_load}}}
+      <pl-dimensions x1="55" y1="237" x2="{{params.x1}}" y2="237" label="{{params.k1_label}}" stroke-color="#919c68" stroke-width="2" offsety="12" draw-start-arrow="true" draw-end-arrow="true" arrow-head-width="10" arrow-head-length="0.25"></pl-dimensions>
+      <pl-dimensions x1="{{params.x1}}" y1="237" x2="{{params.x2}}" y2="237" label="{{params.k2_label}}" stroke-color="#919c68" stroke-width="2" offsety="12" draw-start-arrow="true" draw-end-arrow="true" arrow-head-width="10" arrow-head-length="0.25"></pl-dimensions>
+      <pl-dimensions x1="{{params.x2}}" y1="237" x2="{{params.x3}}" y2="237" label="{{params.k3_label}}" stroke-color="#919c68" stroke-width="2" offsety="12" draw-start-arrow="true" draw-end-arrow="true" arrow-head-width="10" arrow-head-length="0.25"></pl-dimensions>
+      <pl-dimensions x1="{{params.x3}}" y1="237" x2="705" y2="237" label="{{params.k4_label}}" stroke-color="#919c68" stroke-width="2" offsety="12" draw-start-arrow="true" draw-end-arrow="true" arrow-head-width="10" arrow-head-length="0.25"></pl-dimensions>
+
+      <!-- Concentrated load P with randomized direction -->
+      <pl-vector x1="{{params.x3}}" y1="{{params.p_y}}" width="103" anchor-is-tail="{{params.p_anchor_tail}}" angle="{{params.p_angle}}" color="#a14e49" label="P" offsetx="12" offsety="{{params.p_label_y}}"></pl-vector>      
+      
+    </pl-drawing-initial>
+  </pl-drawing>
+</pl-question-panel>
+
+<div class="mb-3">
+  <pl-number-input answers-name="answer1" label="$A_y =$" suffix="$\rm{kip}$" comparison="relabs" rtol="0.01" atol="0.01">
+  </pl-number-input>
+</div>
+
+<div class="mb-3">
+  <pl-number-input answers-name="answer2" label="$B_y =$" suffix="$\rm{kip}$" comparison="relabs" rtol="0.01" atol="0.01">
+  </pl-number-input>
+</div>
+
+<pl-question-panel>
+  <hr>
+  <small>
+    Adapted for PrairieLearn from Problem 1.1, © Chris Galitz, licensed under
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC-SA 4.0</a>.
+    Changes include PrairieLearn-native randomization and grading.
+  </small>
+</pl-question-panel>
