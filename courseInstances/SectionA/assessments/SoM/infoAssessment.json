@@ -5,5 +5,13 @@
   "set": "questionBank",
   "number": "2",
   "accessControl": [],
-  "zones": []
+  "zones": [
+    {
+      "questions": [
+        { "id": "SoM_problem1-1", "autoPoints": 1 },
+        { "id": "SoM_problem1-2", "autoPoints": 1 },
+        { "id": "SoM_problem1-3", "autoPoints": 1 }
+      ]
+    }
+  ]
 }
