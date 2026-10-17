@@ -34,19 +34,14 @@ def generate(data):
     # Native distributed loads preserve the distinct roof, drift and room regions.
     # Snow on the mechanical room ends at its roof, leaving the room empty.
     parts = []
-    def load(left, right, y, w1, w2, name=""):
+    def load(left, right, y, w1, w2):
         parts.append(
             f'<pl-distributed-load x1="{(left+right)/2:.2f}" y1="{y:.2f}" '
             f'width="{right-left:.2f}" w1="{w1:.2f}" w2="{w2:.2f}" '
             f'anchor-is-tail="false" color="red3" stroke-width="2" spacing="18" '
             f'></pl-distributed-load>'
         )
-        if name:
-            parts.append(
-                f'<pl-text x1="{(left+right)/2:.2f}" '
-                f'y1="{y-max(w1,w2)-18:.2f}" label="w" '
-                f'font-size="18"></pl-text>'
-            )
+
     def line(x1, y1, x2, y2, color="#555555"):
         parts.append(f'<pl-line x1="{x1:.2f}" y1="{y1:.2f}" x2="{x2:.2f}" y2="{y2:.2f}" stroke-color="{color}" stroke-width="2"></pl-line>')
     def label(x, y, value):
@@ -61,17 +56,17 @@ def generate(data):
         for yy in (y1, y2):
             parts.append(f'')
     # The main roof snow consists of uniform d and increasing drift to 3d.
-    load(xA,xD,184,33,33,"W")
-    load(xD,xC,184,33,72,"")
+    load(xA,xD,184,33,33)
+    load(xD,xC,184,33,72)
     # Room boundary is deliberately left empty; snow acts on its upper roof.
     line(xC,112,xC,184)
     line(xC,112,xB,112)
     line(xB,112,xB,184)
     label((xC+xB)/2,145,"room")
-    load(xC,xB,112,40,40,"W")
+    load(xC,xB,112,40,40)
     bracket(xA-23,151,184,"d",-13)
     bracket(xC+18,112,184,"3d",25)
     bracket(xB+25,72,112,"d",25)
     p['load_drawing'] = "\n".join(parts)
-    data['correct_answers']['answer1']=Ay/1000
-    data['correct_answers']['answer2']=By/1000
+    data['correct_answers']['answer1']=abs(Ay/1000)
+    data['correct_answers']['answer2']=abs(By/1000)

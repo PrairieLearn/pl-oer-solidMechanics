@@ -24,8 +24,8 @@ def generate(data):
     data["params"].update(k1_label=("a" if k1 == 1 else f"{k1}a"), k2_label=("a" if k2 == 1 else f"{k2}a"), k3_label=("a" if k3 == 1 else f"{k3}a"), k4_label=("a" if k4 == 1 else f"{k4}a"))
     data["params"].update({"P": P, "w": w, "a": a, "d1": d1, "d2": d2, "d3": d3, "d4": d4, "p_angle": 90 if p_dir == 1 else -90,
                            "p_y": 156.5, "p_anchor_tail": "false" if p_dir == 1 else "true", "p_label_y": -119 if p_dir == 1 else -19})
-    data["correct_answers"]["answer1"] = Ay
-    data["correct_answers"]["answer2"] = By
+    data["correct_answers"]["answer1"] = abs(Ay)
+    data["correct_answers"]["answer2"] = abs(By)
 
     # Map each variant to the same fixed-size 650-pixel beam (A at 55, B at 705).
     scale = 650 / L
