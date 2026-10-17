@@ -17,7 +17,7 @@ def generate(data):
     # Positive A_y is upward; positive M_A is counterclockwise.
     Ay = p_dir * P + w_dir * w * d2
     MA = p_dir * P * L + w_dir * w * d2 * (d1 + d2 / 2)
-    data["correct_answers"].update({"answer1": Ay, "answer2": MA})
+    data["correct_answers"].update({"answer1": abs(Ay), "answer2": abs(MA)})
 
     x0, x3 = 75, 705
     scale = (x3 - x0) / L
